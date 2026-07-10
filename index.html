@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenvolva Confiança - Guia Prático</title>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        
+        // Inicializa o Pixel
+        fbq('init', '1349086012872687');
+        
+        // Dispara o PageView assim que o funil é carregado
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1349086012872687&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <style>
+        :root {
+            --bg-color: #111827; /* Dark Gray / Black */
+            --text-color: #f9fafb;
+            --accent-color: #ea580c; /* Vibrant Orange */
+            --accent-hover: #c2410c;
+            --card-bg: #1f2937;
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Container Padrão */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .lp-container {
+            max-width: 800px;
+        }
+
+        /* --- ESTILOS DO FUNIL --- */
+        #funnel-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .funnel-step {
+            display: none;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            text-align: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .funnel-step.active {
+            display: block;
+        }
+
+        .funnel-step h2 {
+            font-size: 24px;
+            margin-bottom: 25px;
+            color: #ffffff;
+        }
+
+        .option-btn {
+            display: block;
+            width: 100%;
+            background: #374151;
+            color: white;
+            border: 2px solid #4b5563;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: left;
+        }
+
+        .option-btn:hover {
+            border-color: var(--accent-color);
+            background: #4b5563;
+        }
+
+        /* Barra de Progresso do Funil (Passo 4) */
+        .progress-bar-container {
+            width: 100%;
+            background-color: #374151;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+            display: none; /* Inicia oculto até a animação começar */
+        }
+
+        .progress-bar {
+            height: 12px;
+            width: 0%;
+            background-color: var(--accent-color);
+            transition: width 3s linear;
+        }
+
+        #result-content {
+            display: none; /* Mostra após a barra encher */
+        }
+
+        .btn-primary {
+            display: inline-block;
+            width: 100%;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 18px;
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            box-shadow: 0 4px 15px rgba(234, 88, 12, 0.4);
+            transition: background 0.3s, transform 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+            transform: scale(1.02);
+        }
+
+        /* --- ESTILOS DA LANDING PAGE --- */
+        #lp-section {
+            display: none; /* Só aparece após o funil */
+            animation: fadeIn 0.6s ease;
+        }
+
+        section {
+            padding: 60px 20px;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 80px 20px 40px 20px;
+        }
+
+        .hero-section h1 {
+            font-size: 32px;
+            line-height: 1.3;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        .hero-section p {
+            font-size: 18px;
+            color: #d1d5db;
+            margin-bottom: 40px;
+        }
+
+        .img-fluid {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+        }
+
+        .content-box {
+            background: var(--card-bg);
+            padding: 40px 30px;
+            border-radius: 12px;
+            margin: 30px auto;
+        }
+
+        h3 {
+            font-size: 26px;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        ul li {
+            font-size: 18px;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 35px;
+        }
+
+        .list-check li::before {
+            content: '✔';
+            position: absolute;
+            left: 0;
+            color: var(--success-color);
+            font-weight: bold;
+        }
+
+        .list-cross li::before {
+            content: '✘';
+            position: absolute;
+            left: 0;
+            color: var(--error-color);
+            font-weight: bold;
+        }
+
+        .deep-pain-box {
+            border-left: 4px solid var(--error-color);
+            padding: 15px 20px;
+            background: rgba(239, 68, 68, 0.1);
+            margin: 20px 0;
+            font-style: italic;
+            color: #fca5a5;
+            text-align: left;
+        }
+
+        .deep-pain-box p { margin-bottom: 10px; }
+        .deep-pain-box p:last-child { margin-bottom: 0; }
+
+        .price-box {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(145deg, #1f2937, #111827);
+            border: 2px solid var(--accent-color);
+            border-radius: 12px;
+            margin-top: 40px;
+        }
+
+        .price {
+            font-size: 50px;
+            font-weight: bold;
+            color: var(--accent-color);
+            margin: 20px 0;
+        }
+
+        .guarantee {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 40px;
+            padding: 20px;
+            border: 1px dashed #4b5563;
+            border-radius: 8px;
+        }
+
+        .faq-box {
+            margin-top: 20px;
+        }
+        
+        .faq-item {
+            background: #374151;
+            padding: 15px 20px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .faq-item strong {
+            display: block;
+            color: var(--accent-color);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Utility */
+        .text-center { text-align: center; }
+        .mt-4 { margin-top: 30px; }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== FUNIL ==================== -->
+    <div id="funnel-section">
+        <div class="container">
+            
+            <!-- ETAPA 1 -->
+            <div id="step-1" class="funnel-step active">
+                <h2>Qual a sua idade?</h2>
+                <button class="option-btn" onclick="nextStep(2)">○ 18–24 anos</button>
+                <button class="option-btn" onclick="nextStep(2)">○ 25–34 anos</button>
+                <button class="option-btn" onclick="nextStep(2)">○ 35–44 anos</button>
+                <button class="option-btn" onclick="nextStep(2)">○ 45+</button>
+            </div>
+
+            <!-- ETAPA 2 -->
+            <div id="step-2" class="funnel-step">
+                <h2>O que mais acontece quando você encontra uma garota que realmente te interessa?</h2>
+                <button class="option-btn" onclick="nextStep(3)">○ Eu simplesmente não consigo chegar.</button>
+                <button class="option-btn" onclick="nextStep(3)">○ Eu chego... mas travo na conversa.</button>
+                <button class="option-btn" onclick="nextStep(3)">○ Eu fico pensando demais e perco a oportunidade.</button>
+                <button class="option-btn" onclick="nextStep(3)">○ Eu nem tento por medo da rejeição.</button>
+            </div>
+
+            <!-- ETAPA 3 -->
+            <div id="step-3" class="funnel-step">
+                <h2>Se você pudesse mudar apenas UMA coisa hoje, qual seria?</h2>
+                <button class="option-btn" onclick="nextStep(4)">○ Ter coragem para iniciar qualquer conversa.</button>
+                <button class="option-btn" onclick="nextStep(4)">○ Saber exatamente o que falar.</button>
+                <button class="option-btn" onclick="nextStep(4)">○ Conseguir conversar naturalmente.</button>
+                <button class="option-btn" onclick="nextStep(4)">○ Conseguir o número e marcar encontros.</button>
+            </div>
+
+            <!-- ETAPA 4 (Análise e Botão Final do Funil) -->
+            <div id="step-4" class="funnel-step">
+                <div id="loading-content">
+                    <h2 id="loading-text">Analisando suas respostas...</h2>
+                    <div class="progress-bar-container" style="display: block;">
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                </div>
+                
+                <div id="result-content">
+                    <h2>Você não está sozinho.</h2>
+                    <p style="margin-bottom: 15px;">Milhares de homens passam exatamente pelo mesmo problema.</p>
+                    <p style="margin-bottom: 15px;">A boa notícia é que isso normalmente não acontece por falta de aparência...</p>
+                    <p style="margin-bottom: 25px;">E sim porque ninguém ensinou como iniciar uma conversa da forma correta.</p>
+                    <p style="margin-bottom: 20px; font-weight: bold; color: var(--accent-color);">Sua análise está pronta.<br>Clique abaixo para descobrir.</p>
+                    <button class="btn-primary" onclick="showLandingPage()">↓ QUERO VER MEU RESULTADO</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- ==================== LANDING PAGE ==================== -->
+    <div id="lp-section">
+        
+        <!-- SEÇÃO 1: HERO -->
+        <section class="hero-section container lp-container">
+            <h1>COMO CHEGAR EM UMA GAROTA SEM FICAR NERVOSO, SEM FALAR BESTEIRA E FAZER A CONVERSA FLUIR NATURALMENTE</h1>
+            <p><strong>— MESMO QUE VOCÊ SEMPRE TRAVE NA HORA H E ACHE QUE NÃO LEVA JEITO COM MULHERES.</strong></p>
+            <p>Descubra o método que já ajudou homens tímidos e inseguros a substituir o medo pela confiança através de passos simples que podem ser praticados imediatamente.</p>
+            
+            <button class="btn-primary lp-scroll-btn">QUERO ACESSAR AGORA</button>
+        </section>
+
+        <!-- SEÇÃO 2: DOR -->
+        <section class="container lp-container">
+            <div class="content-box text-center">
+                <h3>Você provavelmente já passou por isso...</h3>
+                <ul class="list-check" style="display: inline-block; text-align: left; margin-bottom: 20px;">
+                    <li>viu uma garota incrível...</li>
+                    <li>ficou ensaiando na cabeça...</li>
+                    <li>esperou o momento perfeito...</li>
+                    <li>outro cara chegou antes.</li>
+                </ul>
+                
+                <p style="margin: 20px 0;">Ou pior...</p>
+                <p>Você finalmente criou coragem... Abriu a boca... Falou qualquer besteira... E passou vergonha.</p>
+                
+                <div class="deep-pain-box">
+                    <p>"Eu fico imaginando a conversa inteira antes dela acontecer."</p>
+                    <p>"Quando finalmente vou falar... minha mente apaga."</p>
+                    <p>"Vejo caras muito piores que eu conseguindo conversar."</p>
+                    <p>"Minha autoestima diminui toda vez que eu desisto de chegar."</p>
+                    <p>"Quanto mais tempo passa, mais difícil parece."</p>
+                </div>
+
+                <p style="margin-top: 20px; font-weight: bold;">Não porque você é estranho. Mas porque ninguém nunca ensinou o que fazer.</p>
+                
+                <img src="https://images.unsplash.com/photo-1555685812-4b943f1cb0eb?auto=format&fit=crop&w=800&q=80" alt="Homem em cafeteria" class="img-fluid">
+            </div>
+        </section>
+
+        <!-- SEÇÃO 3: VERDADE -->
+        <section class="container lp-container">
+            <div class="content-box">
+                <h3 class="text-center">A verdade é dura...</h3>
+                <p class="text-center">Mulheres rejeitam abordagens ruins. Não homens.</p>
+                <p class="text-center" style="margin-top: 20px;">Quando você aprende a iniciar uma conversa do jeito certo...</p>
+                <p class="text-center" style="font-weight: bold; color: var(--accent-color); font-size: 20px; margin: 15px 0;">A ansiedade diminui. A conversa flui. E você finalmente sente que está no controle.</p>
+                
+                <img src="https://images.unsplash.com/photo-1522529599102-193c0d76b5b6?auto=format&fit=crop&w=800&q=80" alt="Homem conversando sorrindo" class="img-fluid">
+            </div>
+        </section>
+
+        <!-- SEÇÃO 4: O QUE VAI DESCOBRIR -->
+        <section class="container lp-container">
+            <h3 class="text-center">O que você vai descobrir</h3>
+            <div class="content-box">
+                <ul class="list-check">
+                    <li>Como vencer o nervosismo antes mesmo da abordagem.</li>
+                    <li>Como iniciar uma conversa naturalmente.</li>
+                    <li>Como nunca mais ficar sem assunto.</li>
+                    <li>Como evitar erros que afastam mulheres.</li>
+                    <li>Como despertar interesse sem parecer forçado.</li>
+                    <li>Como terminar uma conversa deixando vontade de conversar novamente.</li>
+                </ul>
+            </div>
+            <img src="https://images.unsplash.com/photo-1581291518857-4e27b48ff24e?auto=format&fit=crop&w=800&q=80" alt="Guia Prático Estratégico" class="img-fluid">
+            <div class="text-center mt-4">
+                <button class="btn-primary lp-scroll-btn">QUERO ACESSAR O GUIA PRÁTICO</button>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 5: BÔNUS -->
+        <section class="container lp-container">
+            <h3 class="text-center">Você ainda recebe</h3>
+            
+            <div class="content-box">
+                <h4 style="color: var(--accent-color); font-size: 22px; margin-bottom: 10px;">Mapa Mental</h4>
+                <p>Um resumo visual que mostra exatamente o que fazer antes, durante e depois da abordagem.</p>
+                <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=800&q=80" alt="Mapa Mental" class="img-fluid">
+            </div>
+
+            <div class="content-box">
+                <h4 style="color: var(--accent-color); font-size: 22px; margin-bottom: 10px;">Grupo Exclusivo</h4>
+                <p>Entre para uma comunidade de homens que possuem exatamente o mesmo objetivo.</p>
+                <p style="margin-top: 10px;"><strong>Sem zoação. Sem julgamento. Sem humilhação. Apenas evolução.</strong></p>
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80" alt="Comunidade Telegram" class="img-fluid">
+            </div>
+        </section>
+
+        <!-- SEÇÃO 6 e 7: PARA QUEM É E NÃO É -->
+        <section class="container lp-container">
+            <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                <div class="content-box" style="flex: 1; min-width: 300px; margin: 0;">
+                    <h3>Para quem isso é?</h3>
+                    <ul class="list-check">
+                        <li>homens tímidos</li>
+                        <li>homens divorciados</li>
+                        <li>homens que perderam confiança</li>
+                        <li>homens que nunca aprenderam</li>
+                        <li>homens que cansaram de perder oportunidades</li>
+                    </ul>
+                </div>
+                
+                <div class="content-box" style="flex: 1; min-width: 300px; margin: 0;">
+                    <h3>Para quem NÃO é</h3>
+                    <ul class="list-cross">
+                        <li>homens que procuram cantadas prontas</li>
+                        <li>manipulação</li>
+                        <li>truques milagrosos</li>
+                        <li>promessas irreais</li>
+                    </ul>
+                    <p style="margin-top: 20px; font-size: 14px; color: #9ca3af;">*Isso é sobre desenvolver confiança e habilidade social.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO 8: OFERTA E CHECKOUT -->
+        <section id="offer-section" class="container lp-container">
+            <div class="content-box text-center" style="background: transparent; padding: 0;">
+                <h3 style="font-size: 28px;">Quanto custa continuar travando?</h3>
+                <p>Quantas oportunidades você já perdeu?</p>
+                <p>Quantos contatos nunca aconteceram?</p>
+                <p>Quantas histórias poderiam existir... Mas terminaram antes mesmo de começar?</p>
+            </div>
+
+            <div class="price-box">
+                <p style="font-size: 20px;">Hoje você pode mudar isso por menos do que custa uma pizza.</p>
+                <div class="price">R$ 19,90</div>
+                <p style="margin-bottom: 25px;">Pagamento único. Acesso imediato.</p>
+                
+                <!-- BOTÃO FINAL PARA O CHECKOUT -->
+                <button class="btn-primary" onclick="goToCheckout()">SIM, QUERO PARAR DE TRAVAR</button>
+            </div>
+
+            <!-- GARANTIA -->
+            <div class="guarantee">
+                <div style="font-size: 40px;">🛡️</div>
+                <div style="text-align: left;">
+                    <h4 style="color: var(--accent-color);">Garantia Incondicional</h4>
+                    <p style="font-size: 14px;">Teste o conteúdo. Se perceber que ele não entrega exatamente o que foi prometido, basta solicitar o reembolso dentro do prazo informado e devolveremos seu dinheiro.</p>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="content-box text-center">
+                <h3>Perguntas Frequentes (FAQ)</h3>
+                <div class="faq-box">
+                    <div class="faq-item"><strong>Funciona para tímidos?</strong> Sim, o método foi criado exatamente para quem trava e sente vergonha.</div>
+                    <div class="faq-item"><strong>Preciso ser bonito?</strong> Não. Confiança e habilidade de conversação superam aparência na maioria das vezes.</div>
+                    <div class="faq-item"><strong>Preciso decorar frases?</strong> De forma alguma. Você vai aprender a puxar assunto naturalmente.</div>
+                    <div class="faq-item"><strong>É um curso?</strong> É um Guia Prático e Estratégico direto ao ponto (leitura rápida e aplicação imediata).</div>
+                    <div class="faq-item"><strong>Como recebo?</strong> Imediatamente no seu e-mail após a aprovação do pagamento.</div>
+                    <div class="faq-item"><strong>Tenho acesso ao grupo?</strong> Sim, você receberá o link exclusivo para a comunidade.</div>
+                </div>
+            </div>
+
+            <div class="text-center mt-4">
+                <button class="btn-primary lp-scroll-btn">QUERO ACESSAR AGORA</button>
+            </div>
+            
+            <p class="text-center" style="margin-top: 40px; font-size: 12px; color: #6b7280;">
+                Este site não faz parte do site do Facebook ou da Meta Platforms Inc. Além disso, este site NÃO é endossado pelo Facebook de nenhuma maneira. FACEBOOK é uma marca comercial independente da Meta Platforms, Inc.
+            </p>
+
+        </section>
+    </div>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        // Função para avançar no Funil
+        function nextStep(stepNumber) {
+            // Esconde a etapa atual
+            const currentStep = stepNumber - 1;
+            document.getElementById('step-' + currentStep).classList.remove('active');
+            
+            // Dispara o Pixel Personalizado do Funil
+            fbq('trackCustom', 'Funnel_Step_' + stepNumber + '_View');
+
+            // Mostra a próxima etapa
+            const nextStepDiv = document.getElementById('step-' + stepNumber);
+            nextStepDiv.classList.add('active');
+
+            // Se for a última etapa (Step 4), inicia a barra de progresso
+            if(stepNumber === 4) {
+                setTimeout(() => {
+                    document.getElementById('progress-bar').style.width = '100%';
+                }, 100);
+
+                // Espera 3 segundos para mostrar o resultado e botão
+                setTimeout(() => {
+                    document.getElementById('loading-content').style.display = 'none';
+                    document.getElementById('result-content').style.display = 'block';
+                }, 3000);
+            }
+        }
+
+        // Função para mostrar a Landing Page e disparar ViewContent
+        function showLandingPage() {
+            document.getElementById('funnel-section').style.display = 'none';
+            document.getElementById('lp-section').style.display = 'block';
+            window.scrollTo(0, 0); // Sobe pro topo
+            
+            // Dispara ViewContent ao carregar a página de vendas
+            fbq('track', 'ViewContent');
+        }
+
+        // Lógica de scroll para botões da Landing Page + Disparo do Evento CLIQUEBUTTON
+        document.querySelectorAll('.lp-scroll-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                // Evento exigido
+                fbq('trackCustom', 'CLIQUEBUTTON');
+                
+                // Desce suavemente até a oferta
+                document.getElementById('offer-section').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Função para o Botão Final (Checkout)
+        function goToCheckout() {
+            // Dispara apenas o CLIQUEBUTTON, NÃO dispara InitiateCheckout
+            fbq('trackCustom', 'CLIQUEBUTTON');
+            
+            // Redireciona para o link da Cakto
+            window.location.href = 'https://pay.cakto.com.br/yfigzpy_974876';
+        }
+    </script>
+</body>
+</html>
