@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desenvolva Confiança - Guia Prático</title>
+
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        
+        // Inicializa o Pixel
+        fbq('init', '1349086012872687');
+        
+        // Dispara o PageView e ViewContent imediatamente ao carregar a página
+        fbq('track', 'PageView');
+        fbq('track', 'ViewContent');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=1349086012872687&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+
+    <style>
+        /* ================= PALETA E VARIÁVEIS ================= */
+        :root {
+            --bg-color: #111827;      
+            --card-bg: #1f2937;       
+            --card-border: #374151;   
+            --accent-color: #ea580c;  
+            --accent-hover: #c2410c;  
+            --text-light: #f9fafb;    
+            --text-muted: #9ca3af;    
+            --success-color: #10b981;
+            --error-color: #ef4444;
+            --font-main: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-light);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ================= HIERARQUIA TIPOGRÁFICA ================= */
+        h1 { font-size: clamp(28px, 5vw, 42px); font-weight: 900; line-height: 1.2; color: #fff; text-transform: uppercase; }
+        h1 .highlight { color: var(--accent-color); }
+        h2 { font-size: clamp(22px, 4vw, 32px); font-weight: 800; line-height: 1.3; color: #fff; margin-bottom: 20px; }
+        h3 { font-size: clamp(18px, 3vw, 24px); font-weight: 700; color: #fff; margin-bottom: 15px; }
+        p { font-size: 16px; font-weight: 400; color: var(--text-muted); margin-bottom: 15px; }
+        .text-strong { color: var(--text-light); font-weight: 600; }
+
+        /* ================= ESTRUTURA E GRIDS ================= */
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .lp-container { max-width: 900px; }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 768px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+        
+        .grid-3 { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        @media (min-width: 768px) { .grid-3 { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 992px) { .grid-3 { grid-template-columns: repeat(3, 1fr); } }
+
+        section { padding: 80px 20px; position: relative; }
+        .content-box { background: var(--card-bg); padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); border: 1px solid var(--card-border); }
+
+        /* ================= BOTÕES ================= */
+        .btn-primary {
+            display: inline-flex; justify-content: center; align-items: center; gap: 10px;
+            width: 100%; background-color: var(--accent-color); color: #fff;
+            padding: 20px; font-size: 18px; font-weight: 800; text-align: center;
+            border: none; border-radius: 12px; cursor: pointer; text-transform: uppercase;
+            box-shadow: 0 8px 25px rgba(234, 88, 12, 0.4); transition: all 0.3s ease; text-decoration: none;
+        }
+        .btn-primary:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 12px 30px rgba(234, 88, 12, 0.6); }
+
+        /* ================= ELEMENTOS VISUAIS ================= */
+        
+        /* HERO */
+        .hero-section { text-align: center; padding: 60px 20px 40px; animation: fadeIn 0.8s ease; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(234, 88, 12, 0.15); color: var(--accent-color); padding: 8px 16px; border-radius: 30px; font-size: 13px; font-weight: 700; margin-bottom: 25px; border: 1px solid rgba(234, 88, 12, 0.3); }
+        .hero-img { border-radius: 16px; box-shadow: 0 15px 35px rgba(0,0,0,0.6); width: 100%; margin-top: 30px; border: 1px solid var(--card-border); }
+
+        /* CARDS / LISTAS COM ÍCONES */
+        .icon-card { background: var(--card-bg); border: 1px solid var(--card-border); padding: 20px; border-radius: 12px; display: flex; align-items: flex-start; gap: 15px; }
+        .icon-card .icon { font-size: 24px; color: var(--accent-color); background: rgba(234, 88, 12, 0.1); padding: 10px; border-radius: 8px; }
+        .icon-card p { margin: 0; color: var(--text-light); font-weight: 500; font-size: 15px; }
+
+        /* BALÕES DE PENSAMENTO (DORES) */
+        .chat-bubble { background: #2d3748; padding: 18px 25px; border-radius: 20px 20px 20px 0; margin-bottom: 15px; border-left: 4px solid var(--accent-color); color: #e2e8f0; font-style: italic; box-shadow: 0 4px 10px rgba(0,0,0,0.2); position: relative; font-size: 15px; }
+        .chat-bubble::before { content: '💭'; position: absolute; top: -10px; left: -10px; font-size: 20px; }
+
+        /* CITAÇÃO DE DESTAQUE */
+        .highlight-quote { background: linear-gradient(135deg, var(--card-bg), #111827); border: 1px solid var(--accent-color); padding: 30px; border-radius: 16px; text-align: center; margin: 30px 0; position: relative; }
+        .highlight-quote p { font-size: 22px; font-weight: 800; color: #fff; margin: 0; line-height: 1.4; }
+
+        /* CHECKLIST / GRIDS */
+        .check-item { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; background: var(--bg-color); padding: 15px; border-radius: 8px; border: 1px solid var(--card-border); }
+        .check-item.green i { color: var(--success-color); font-style: normal; font-weight: bold; font-size: 18px; }
+        .check-item.red i { color: var(--error-color); font-style: normal; font-weight: bold; font-size: 18px; }
+        .check-item span { font-weight: 500; color: var(--text-light); }
+
+        /* BÔNUS MOCKUPS */
+        .bonus-card { text-align: center; background: var(--bg-color); border: 1px solid var(--accent-color); padding: 25px; border-radius: 16px; position: relative; }
+        .bonus-badge { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: var(--accent-color); color: #fff; font-weight: 800; padding: 5px 15px; border-radius: 20px; font-size: 12px; letter-spacing: 1px; }
+        .bonus-img { width: 100%; max-width: 250px; margin: 20px auto; border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
+
+        /* OFERTA E PREÇO */
+        .price-box { text-align: center; padding: 40px 20px; background: linear-gradient(145deg, #271408, #111827); border: 2px solid var(--accent-color); border-radius: 16px; margin-top: 40px; position: relative; overflow: hidden; }
+        .price-box::before { content: 'OFERTA LIBERADA'; position: absolute; top: 20px; right: -40px; background: var(--accent-color); color: #fff; font-weight: bold; font-size: 12px; padding: 5px 40px; transform: rotate(45deg); }
+        .price-old { text-decoration: line-through; color: var(--text-muted); font-size: 20px; font-weight: 600; margin-bottom: 5px; }
+        .price { font-size: 60px; font-weight: 900; color: var(--accent-color); line-height: 1; margin-bottom: 10px; }
+        .price-sub { font-size: 16px; color: var(--text-light); font-weight: 500; margin-bottom: 30px; }
+
+        .guarantee-box { display: flex; align-items: center; gap: 20px; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); padding: 25px; border-radius: 12px; margin-top: 30px; }
+        .guarantee-icon { font-size: 45px; }
+        .guarantee-box h4 { color: var(--success-color); font-size: 18px; margin-bottom: 5px; }
+        .guarantee-box p { margin: 0; font-size: 14px; color: #d1d5db; }
+
+        /* FAQ ACCORDION */
+        .faq-item { background: var(--card-bg); margin-bottom: 12px; border-radius: 12px; border: 1px solid var(--card-border); overflow: hidden; }
+        .faq-item summary { padding: 18px 20px; cursor: pointer; font-weight: 700; color: var(--text-light); font-size: 16px; display: flex; justify-content: space-between; align-items: center; list-style: none; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '+'; color: var(--accent-color); font-size: 24px; font-weight: normal; }
+        .faq-item[open] summary::after { content: '−'; }
+        .faq-content { padding: 0 20px 20px 20px; color: var(--text-muted); font-size: 15px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Utilities */
+        .text-center { text-align: center; }
+        .mt-4 { margin-top: 40px; }
+        .mb-4 { margin-bottom: 40px; }
+    </style>
+</head>
+<body>
+
+    <!-- SEÇÃO 1: HERO -->
+    <section class="hero-section container lp-container">
+        <div class="hero-badge">⭐ MÉTODO TESTADO POR + DE 15.000 HOMENS</div>
+        
+        <!-- HEADLINE COM DESTAQUES EM LARANJA -->
+        <h1>COMO CHEGAR EM UMA GAROTA <span class="highlight">SEM FICAR NERVOSO</span>, SEM FALAR BESTEIRA E FAZER A CONVERSA <span class="highlight">FLUIR NATURALMENTE</span></h1>
+        
+        <p class="text-strong" style="font-size: 18px; margin: 20px 0;">— MESMO QUE VOCÊ SEMPRE TRAVE NA HORA H E ACHE QUE NÃO LEVA JEITO COM MULHERES.</p>
+        <p>Descubra o método que já ajudou homens tímidos e inseguros a substituir o medo pela confiança através de passos simples que podem ser praticados imediatamente.</p>
+        
+        <button class="btn-primary lp-scroll-btn mt-4">QUERO ACESSAR AGORA</button>
+        
+        <!-- Imagem Narrativa (Mulheres rindo/ambiente social) -->
+        <img src="https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?auto=format&fit=crop&w=1200&q=80" alt="Mulheres rindo em ambiente descontraído" class="hero-img">
+    </section>
+
+    <!-- SEÇÃO 2: DOR -->
+    <section class="container lp-container">
+        <div class="content-box">
+            <h3 class="text-center mb-4">Você provavelmente já passou por isso...</h3>
+            
+            <div class="grid-2 mb-4">
+                <div class="icon-card">
+                    <div class="icon">👀</div>
+                    <p>Viu uma garota incrível...</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">🧠</div>
+                    <p>Ficou ensaiando na cabeça...</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">⏳</div>
+                    <p>Esperou o momento perfeito...</p>
+                </div>
+                <div class="icon-card">
+                    <div class="icon">🤦‍♂️</div>
+                    <p>Outro cara chegou antes.</p>
+                </div>
+            </div>
+            
+            <p class="text-center text-strong" style="margin: 30px 0;">Ou pior... Você finalmente criou coragem... Abriu a boca... Falou qualquer besteira... E passou vergonha.</p>
+            
+            <div style="margin: 40px 0;">
+                <div class="chat-bubble">"Eu fico imaginando a conversa inteira antes dela acontecer."</div>
+                <div class="chat-bubble" style="margin-left: 20px;">"Quando finalmente vou falar... minha mente apaga."</div>
+                <div class="chat-bubble">"Vejo caras muito piores que eu conseguindo conversar."</div>
+                <div class="chat-bubble" style="margin-left: 20px;">"Minha autoestima diminui toda vez que eu desisto de chegar."</div>
+                <div class="chat-bubble">"Quanto mais tempo passa, mais difícil parece."</div>
+            </div>
+
+            <p class="text-center text-strong" style="font-size: 18px; color: var(--accent-color);">Não porque você é estranho. Mas porque ninguém nunca ensinou o que fazer.</p>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 3: VERDADE -->
+    <section class="container lp-container">
+        <div class="grid-2" style="align-items: center;">
+            <div>
+                <!-- Link atualizado da dor -->
+                <img src="https://images.unsplash.com/photo-1528696892704-5e1122852276?auto=format&fit=crop&w=800&q=80" alt="Homem frustrado em ambiente noturno" style="width: 100%; border-radius: 16px; border: 1px solid var(--card-border);">
+            </div>
+            <div>
+                <h3>A verdade é dura...</h3>
+                <p>Mulheres rejeitam abordagens ruins. Não homens.</p>
+                <p>Quando você aprende a iniciar uma conversa do jeito certo...</p>
+                
+                <div class="highlight-quote">
+                    <p>A ansiedade diminui. A conversa flui. E você finalmente sente que está no controle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 4: O QUE VAI DESCOBRIR -->
+    <section class="container lp-container">
+        <h3 class="text-center mb-4">O que você vai descobrir</h3>
+        
+        <div class="grid-2">
+            <div class="check-item green"><i>✔</i><span>Como vencer o nervosismo antes mesmo da abordagem.</span></div>
+            <div class="check-item green"><i>✔</i><span>Como iniciar uma conversa naturalmente.</span></div>
+            <div class="check-item green"><i>✔</i><span>Como nunca mais ficar sem assunto.</span></div>
+            <div class="check-item green"><i>✔</i><span>Como evitar erros que afastam mulheres.</span></div>
+            <div class="check-item green"><i>✔</i><span>Como despertar interesse sem parecer forçado.</span></div>
+            <div class="check-item green"><i>✔</i><span>Como terminar uma conversa deixando vontade de conversar novamente.</span></div>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn-primary lp-scroll-btn" style="max-width: 400px;">QUERO ACESSAR O GUIA PRÁTICO</button>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 5: BÔNUS -->
+    <section class="container lp-container">
+        <h3 class="text-center mb-4">Você ainda recebe</h3>
+        
+        <div class="grid-2">
+            <div class="bonus-card">
+                <div class="bonus-badge">BÔNUS 01</div>
+                <h4 style="color: var(--accent-color); font-size: 20px; margin-bottom: 10px; margin-top: 10px;">Mapa Mental</h4>
+                <p style="font-size: 14px;">Um resumo visual que mostra exatamente o que fazer antes, durante e depois da abordagem.</p>
+                <img src="https://images.unsplash.com/photo-1611224923853-80b023f02d71?auto=format&fit=crop&w=600&q=80" alt="Mapa Mental" class="bonus-img">
+            </div>
+
+            <div class="bonus-card">
+                <div class="bonus-badge">BÔNUS 02</div>
+                <h4 style="color: var(--accent-color); font-size: 20px; margin-bottom: 10px; margin-top: 10px;">Grupo Exclusivo</h4>
+                <p style="font-size: 14px;">Comunidade de homens com o mesmo objetivo. Sem zoação. Sem julgamento. Apenas evolução.</p>
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=600&q=80" alt="Comunidade Telegram" class="bonus-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 6 e 7: PARA QUEM É E NÃO É -->
+    <section class="container lp-container">
+        <div class="grid-2">
+            <div class="content-box" style="border-top: 4px solid var(--success-color);">
+                <h3 style="color: var(--text-light);">Para quem isso é?</h3>
+                <div class="check-item green" style="background: transparent; border: none; padding: 5px 0;"><i>✔</i><span>Homens tímidos</span></div>
+                <div class="check-item green" style="background: transparent; border: none; padding: 5px 0;"><i>✔</i><span>Homens divorciados</span></div>
+                <div class="check-item green" style="background: transparent; border: none; padding: 5px 0;"><i>✔</i><span>Homens que perderam confiança</span></div>
+                <div class="check-item green" style="background: transparent; border: none; padding: 5px 0;"><i>✔</i><span>Homens que nunca aprenderam</span></div>
+                <div class="check-item green" style="background: transparent; border: none; padding: 5px 0;"><i>✔</i><span>Cansaram de perder oportunidades</span></div>
+            </div>
+            
+            <div class="content-box" style="border-top: 4px solid var(--error-color);">
+                <h3 style="color: var(--text-light);">Para quem NÃO é</h3>
+                <div class="check-item red" style="background: transparent; border: none; padding: 5px 0;"><i>✘</i><span>Homens procurando cantadas prontas</span></div>
+                <div class="check-item red" style="background: transparent; border: none; padding: 5px 0;"><i>✘</i><span>Manipulação</span></div>
+                <div class="check-item red" style="background: transparent; border: none; padding: 5px 0;"><i>✘</i><span>Truques milagrosos</span></div>
+                <div class="check-item red" style="background: transparent; border: none; padding: 5px 0;"><i>✘</i><span>Promessas irreais</span></div>
+                <p style="margin-top: 20px; font-size: 13px;">*Isso é sobre desenvolver confiança e habilidade social.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SEÇÃO 8: OFERTA E CHECKOUT -->
+    <section id="offer-section" class="container lp-container">
+        <div class="text-center">
+            <h3 style="font-size: 28px;">Quanto custa continuar travando?</h3>
+            <p>Quantas oportunidades você já perdeu? Quantos contatos nunca aconteceram?</p>
+            <p>Quantas histórias poderiam existir... Mas terminaram antes mesmo de começar?</p>
+        </div>
+
+        <div class="price-box">
+            <p class="text-strong" style="font-size: 20px; color: #fff;">Hoje você pode mudar isso por menos do que custa uma pizza.</p>
+            <div class="price-old">De R$ 97,00 por</div>
+            <div class="price">R$ 19,90</div>
+            <div class="price-sub">Pagamento único. Acesso imediato.</div>
+            
+            <button class="btn-primary" onclick="goToCheckout()" style="max-width: 400px; margin: 0 auto;">SIM, QUERO PARAR DE TRAVAR</button>
+        </div>
+
+        <!-- GARANTIA -->
+        <div class="guarantee-box">
+            <div class="guarantee-icon">🛡️</div>
+            <div>
+                <h4>Garantia Incondicional</h4>
+                <p>Teste o conteúdo. Se perceber que ele não entrega exatamente o que foi prometido, basta solicitar o reembolso dentro do prazo informado e devolveremos seu dinheiro.</p>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="content-box mt-4">
+            <h3 class="text-center mb-4">Perguntas Frequentes (FAQ)</h3>
+            
+            <details class="faq-item">
+                <summary>Funciona para tímidos?</summary>
+                <div class="faq-content">Sim, o método foi criado exatamente para quem trava e sente vergonha. Ajudamos a construir a confiança do zero.</div>
+            </details>
+            
+            <details class="faq-item">
+                <summary>Preciso ser bonito?</summary>
+                <div class="faq-content">Não. Confiança, leitura de ambiente e habilidade de conversação superam aparência física na imensa maioria das vezes.</div>
+            </details>
+            
+            <details class="faq-item">
+                <summary>Preciso decorar frases?</summary>
+                <div class="faq-content">De forma alguma. Você vai aprender a ler o contexto e puxar assunto naturalmente, sem parecer um robô ou alguém forçado.</div>
+            </details>
+            
+            <details class="faq-item">
+                <summary>É um curso?</summary>
+                <div class="faq-content">É um Guia Prático e Estratégico direto ao ponto. Leitura rápida focada em aplicação imediata, sem horas de teoria inútil.</div>
+            </details>
+            
+            <details class="faq-item">
+                <summary>Como recebo?</summary>
+                <div class="faq-content">Imediatamente no seu e-mail após a aprovação do pagamento, seja por PIX ou Cartão de Crédito.</div>
+            </details>
+            
+            <details class="faq-item">
+                <summary>Tenho acesso ao grupo?</summary>
+                <div class="faq-content">Sim, você receberá junto com o material o link exclusivo para acessar nossa comunidade de evolução.</div>
+            </details>
+        </div>
+
+        <div class="text-center mt-4">
+            <button class="btn-primary lp-scroll-btn" style="max-width: 400px;">QUERO ACESSAR AGORA</button>
+        </div>
+        
+        <p class="text-center" style="margin-top: 40px; font-size: 11px; color: #4b5563;">
+            Este site não faz parte do site do Facebook ou da Meta Platforms Inc. Além disso, este site NÃO é endossado pelo Facebook de nenhuma maneira. FACEBOOK é uma marca comercial independente da Meta Platforms, Inc.
+        </p>
+    </section>
+
+    <!-- ==================== JAVASCRIPT ==================== -->
+    <script>
+        document.querySelectorAll('.lp-scroll-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                fbq('trackCustom', 'CLIQUEBUTTON');
+                document.getElementById('offer-section').scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        function goToCheckout() {
+            fbq('trackCustom', 'CLIQUEBUTTON');
+            window.location.href = 'https://pay.cakto.com.br/yfigzpy_974876';
+        }
+    </script>
+</body>
+</html>
